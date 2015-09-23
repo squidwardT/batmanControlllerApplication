@@ -36,7 +36,7 @@ class BatmanServerSocket(BatmanSocket):
 
 		while True:
 			client, address = self.sock.accept()
-			batman_client = BatmanSocket(address, client)
+			batman_client = BatmanSocket(address, client, address)
 
 			add_thread = Thread(target = self.add_client, args = [batman_client])
 			read_thread = Thread(target = self.read_client, args = [batman_client])
@@ -65,7 +65,7 @@ class BatmanServerSocket(BatmanSocket):
 		self.clients.append(client)
 			
 
-	def read_client(self, clients):
+	def read_client(self, clients, address = None):
 		client = clients
 		message = client.read()
 		args = shlex.split(message)
