@@ -4,8 +4,9 @@ from load_batman import load_batman
 from run_command import run_command
 
 def create_batman_network(network_name = 'squids_network', 
-						ap_mac = '02:12:34:56:78:9A', channel = '1',
-						ip_address = '192.168.2.1'):
+						ap_mac = '02:12:34:56:78:9A', 
+						ip_address = '192.168.2.1',
+						channel = '1'):
 	'''Create a BATMAN network using Raspbian.
 
 	ARGS:
@@ -48,5 +49,5 @@ if __name__ == '__main__':
 	parser.add_argument('-i', 'ip_address', default = '192.168.2.1')
 	args = parser.parse_args()
 
-	create_batman_network(args.network, args.ap_mac, args.channel, args.ip_address)
+	create_batman_network(args.network, args.ap_mac, args.ip_address, args.channel)
 
