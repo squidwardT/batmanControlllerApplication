@@ -1,4 +1,12 @@
 def read_os():
+	'''Read the OS of the device.
+
+	ARGS:
+	None
+
+	RETURNS:
+	None
+	'''
 	from platform import system
 	return system()
 
