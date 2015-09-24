@@ -1,5 +1,3 @@
-from run_command import run_command
-
 def load_batman():
 	'''Load BATMAN-Advanced.
 
@@ -9,6 +7,9 @@ def load_batman():
 	RETURN:
 	Boolean	-- True if successful; otherwise False
 	'''
+	import sys
+	sys.path.append('..')
+	from run_command import run_command
 
 	# Run the load and store stdout
 	run_command('modprobe batman-adv')

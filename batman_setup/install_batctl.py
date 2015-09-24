@@ -1,5 +1,3 @@
-from run_command import run_command
-
 def install_batctl():
 	'''Installs batctl a BATMAN-Advanced configuration tool.
 
@@ -9,7 +7,9 @@ def install_batctl():
 	RETURN:
 	None
 	'''
-	
+	import sys
+	sys.path.append('..')
+	from run_command import run_command	
 	run_command('sudo apt-get batctl')
 
 if __name__ == '__main__':

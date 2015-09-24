@@ -1,8 +1,4 @@
-import sys
 import socket
-
-sys.path.append('../')
-from batman_setup import *
 
 class BatmanSocket(object):
 

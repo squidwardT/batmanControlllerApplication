@@ -1,8 +1,3 @@
-import time
-import argparse
-from load_batman import load_batman
-from run_command import run_command
-
 def create_batman_network(network_name = 'squids_network', 
 						ap_mac = '02:12:34:56:78:9A', 
 						ip_address = '192.168.2.1',
@@ -17,8 +12,13 @@ def create_batman_network(network_name = 'squids_network',
 	RETURN:
 	None
 	'''
+	import sys
+	import time
+	sys.path.append('..')
+	from batman_setup import load_batman
+	from run_command import run_command
 
-	load_batman()
+	load_batman.load_batman()
 
 	# Configure wlan0 to have a Maximum Transmission Unit to 1532 frames
 	# This is standard for BATMAN-Advanced. Most protocols only require
@@ -42,6 +42,7 @@ def create_batman_network(network_name = 'squids_network',
 
 
 if __name__ == '__main__':
+	import argparse
 	parser = ArgumentParser()
 	parser.add_argument('-n', 'network', default = 'squids_network')
 	parser.add_argument('-a', 'ap_mac', default = '02:12:34:56:78:9A')

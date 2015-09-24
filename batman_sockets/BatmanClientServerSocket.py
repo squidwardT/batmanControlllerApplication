@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 from run_command import run_command
 from batman_socket import BatmanSocket
 from BatmanServerSocket import BatmanServerSocket

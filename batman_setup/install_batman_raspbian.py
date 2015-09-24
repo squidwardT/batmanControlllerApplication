@@ -1,8 +1,6 @@
-import argparse
-import os
-from download_batman import download_batman
-from load_batman import load_batman
-from run_command import run_command
+
+
+
 
 
 def install_batman_raspbian(path = '/squids_tmp'):
@@ -16,6 +14,12 @@ def install_batman_raspbian(path = '/squids_tmp'):
 	RETURN:
 	None
 	'''
+	import os
+	import sys
+	sys.path.append('..')
+	from download_batman import download_batman
+	from load_batman import load_batman
+	from run_command import run_command
 
 	# Check if @path does not exist create it then download BATMAN to it
 	if not os.path.exists(path):
@@ -40,6 +44,7 @@ def install_batman_raspbian(path = '/squids_tmp'):
 		print 'Could not load BATMAN-Advanced\n'
 
 if __name__ == '__main__':
+	import argparse
 	parser = argparse.ArgumentParser()
 	parser.add_argument('path', default = '/squids_tmp')
 
