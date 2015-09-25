@@ -12,3 +12,4 @@ urllib
 tarfile
 os
 subprocess
+re
