@@ -21,7 +21,6 @@ def run_command(command):
 
 	# Kill the process and read and return stdout and stderr
 	out, err = process.communicate()
-	process.kill()
 	return out, err
 
 if __name__ == '__main__':
