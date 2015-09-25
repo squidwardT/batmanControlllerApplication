@@ -15,12 +15,15 @@ class BatmanServerSocket(BatmanSocket):
 					   some way
 	'''
 
-	def __init__(self):
+	def __init__(self, address):
 		'''CONSTRUCTOR: Run parent constructor and initialize the clients array'''
 		super(BatmanServerSocket, self).__init__(self)
 		self.clients = []
+		self.address = address
+		self.port = 3090
+		server_thread = Thread(target = self._start_server)
 
-	def start_server(self, port):
+	def start_server(self):
 		'''Listen on a @port for incoming application connections. When connected to
 		store the client's information and attempt to read its transmitted data.
 
@@ -32,7 +35,7 @@ class BatmanServerSocket(BatmanSocket):
 		'''
 
 		# Bind this socket to port and listen for connections
-		self.sock.bind((socket.gethostname(), port))
+		self.sock.bind((socket.gethostname(), self.port))
 		self.sock.listen(5)
 
 		# While the application is running attempt listen for connections and read the
@@ -107,5 +110,4 @@ class BatmanServerSocket(BatmanSocket):
 
 if __name__ == '__main__':
 	server = BatmanServerSocket()
-	server.start_server(56634)
 

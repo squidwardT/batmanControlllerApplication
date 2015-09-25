@@ -12,7 +12,7 @@ class BatmanClientServerSocket(BatmanServerSocket):
 	@transmission_client		-- A socket capable of sending out data to other nodes.
 	'''
 	def __init__(self, address, client = None):
-		super(BatmanClientServerSocket, self_.__init__(address)
+		super(BatmanClientServerSocket, self).__init__(address)
 		# Initialize transmission client
 		if client is None:
 			self.transmission_client = BatmanSocket()
