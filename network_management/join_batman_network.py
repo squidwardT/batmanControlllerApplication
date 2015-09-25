@@ -1,4 +1,4 @@
-def create_batman_network(network_name = 'squids_network', 
+def join_batman_network(network_name = 'squids_network', 
 						ap_mac = '02:12:34:56:78:9A', 
 						ip_address = '192.168.2.1',
 						channel = '1'):
