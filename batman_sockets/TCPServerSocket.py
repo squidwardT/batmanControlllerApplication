@@ -2,9 +2,9 @@ import shlex
 import select
 import socket
 from threading import Thread
-from BatmanSocket import BatmanSocket
+from TCPSocket import TCPSocket
 
-class BatmanServerSocket(BatmanSocket):
+class TCPServerSocket(TCPSocket):
 
 	'''CLASS: Representing a BATMAN-Advanced node as a server socket listening on
 			  a port to take action or pass data
@@ -17,11 +17,11 @@ class BatmanServerSocket(BatmanSocket):
 
 	def __init__(self, address):
 		'''CONSTRUCTOR: Run parent constructor and initialize the clients array'''
-		super(BatmanServerSocket, self).__init__(self)
+		super(TCPSocket, self).__init__(self)
 		self.clients = []
 		self.address = address
 		self.port = 3090
-		server_thread = Thread(target = self._start_server)
+		server_thread = Thread(target = self.start_server)
 
 	def start_server(self):
 		'''Listen on a @port for incoming application connections. When connected to
@@ -43,12 +43,10 @@ class BatmanServerSocket(BatmanSocket):
 		while True:
 			# Get the connected socket and make a Batman Socket out of it
 			client, address = self.sock.accept()
-			batman_client = BatmanSocket(address, client, address)
+			tcp_client = TCPSocket(address, address, client)
 
 			# Start threads to add devices to the list of clients and read their messages
-			add_thread = Thread(target = self.add_client, args = [batman_client])
-			read_thread = Thread(target = self.read_client, args = [batman_client])
-			add_thread.start()
+			read_thread = Thread(target = self.read_client, args = [tcp_client])
 			read_thread.start()
 
 	def update_client(self):
@@ -95,7 +93,7 @@ class BatmanServerSocket(BatmanSocket):
 		self.clients.append(client)
 			
 
-	def read_client(self, clients, address = None):
+	def read_client(self, clients):
 		'''Receive the client's message.
 
 		ARGS:
@@ -109,5 +107,5 @@ class BatmanServerSocket(BatmanSocket):
 		
 
 if __name__ == '__main__':
-	server = BatmanServerSocket()
+	TCPServerSocket()
 
