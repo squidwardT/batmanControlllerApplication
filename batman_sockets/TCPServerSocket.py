@@ -10,18 +10,17 @@ class TCPServerSocket(TCPSocket):
 			  a port to take action or pass data
 
 	FIELDS:
-	@self.socket 	-- The child socket this socket has been built from.
+	@self.sock 	-- The child socket this socket has been built from.
 	@self.clients	-- The list of clients that are communicating with this device in
 					   some way
 	'''
 
 	def __init__(self, address):
 		'''CONSTRUCTOR: Run parent constructor and initialize the clients array'''
-		super(TCPSocket, self).__init__(self)
+		super(TCPServerSocket, self).__init__(address)
 		self.clients = []
 		self.address = address
-		self.port = 3090
-		server_thread = Thread(target = self.start_server)
+		self.port = 55704
 
 	def start_server(self):
 		'''Listen on a @port for incoming application connections. When connected to
@@ -43,7 +42,7 @@ class TCPServerSocket(TCPSocket):
 		while True:
 			# Get the connected socket and make a Batman Socket out of it
 			client, address = self.sock.accept()
-			tcp_client = TCPSocket(address, address, client)
+			tcp_client = TCPSocket(address, client)
 
 			# Start threads to add devices to the list of clients and read their messages
 			read_thread = Thread(target = self.read_client, args = [tcp_client])
@@ -67,7 +66,7 @@ class TCPServerSocket(TCPSocket):
 			self.clients.remove(item)
 		# Remove items not readable or writable
 		for item in self.clients:
-			if item not in ready_to_read and not in ready_to_write:
+			if item not in ready_to_read and item not in ready_to_write:
 				self.clients.remove(item)
 		# Read ready to read clients
 		for item in ready_to_read:
@@ -103,9 +102,11 @@ class TCPServerSocket(TCPSocket):
 		RETURNS:
 		@args 			-- A list of arguments to be interpreted
 		'''
-		return shlex.split(clients.read())
+		msg = clients.read()
+		print msg
+		return shlex.split(msg)
 		
 
 if __name__ == '__main__':
-	TCPServerSocket()
-
+	server = TCPServerSocket('whatever')
+	server.start_server()

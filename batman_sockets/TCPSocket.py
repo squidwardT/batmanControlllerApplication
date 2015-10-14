@@ -12,7 +12,7 @@ class TCPSocket(object):
 
 	def __init__(self, address, sock = None):
 		self.address = address
-
+		
 		if sock is None:
 			self.create_socket()
 		else:
@@ -27,7 +27,7 @@ class TCPSocket(object):
 		RETURNS:
 		None
 		'''
-		self.sock = socket.socket(socket.socket.AF_INET, socket.SOCK_STREAM)
+		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 	def connect(self, host, port):
 		'''Connect the base socket to the @host provided if the application is
@@ -79,8 +79,8 @@ class TCPSocket(object):
 		# finished and what is in the buffer will be returned.
 		chunks = []
 		total_recieved = 0
-		while total_recieved < 7:
-			chunk = self.sock.recv(min(7 - total_recieved, 2048))
+		while total_recieved < 5:
+			chunk = self.sock.recv(min(5 - total_recieved, 2048))
 			if chunk == '':
 				raise RuntimeError('Connection Broken')
 			chunks.append(chunk)
@@ -88,6 +88,6 @@ class TCPSocket(object):
 		return ''.join(chunks)	
 
 if __name__ == '__main__':
-	socket = BatmanSocket('hello')
-	socket.connect('129.10.33.161', 56634)
-	socket.write('d hello')
+	socket = TCPSocket('hello')
+	socket.connect('129.10.33.157', 55704)
+	socket.write('hello')
