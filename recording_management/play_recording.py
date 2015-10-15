@@ -1,4 +1,13 @@
 def play_recording(name, interface = 'headset'):
+	'''Playback a recording.
+
+	ARGS:
+	@name 		-- The file name of the recording.
+	@interface 	-- The interface to play it over.
+
+	RETURNS:
+	None
+	'''
 	import sys
 	sys.path.append('..')
 	from run_command import run_command
