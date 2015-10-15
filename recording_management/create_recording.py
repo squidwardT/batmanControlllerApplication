@@ -11,6 +11,7 @@ def create_recording(duration, filename, el_format = 'wav'):
 	'''
 	import time
 
+	# Start a recording and wait @duration to kill it
 	process = start_recording(filename, el_format)
 	time.sleep(duration)
 	stop_recording(process)
