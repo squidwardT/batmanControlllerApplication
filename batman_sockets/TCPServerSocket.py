@@ -34,7 +34,7 @@ class TCPServerSocket(TCPSocket):
 		'''
 
 		# Bind this socket to port and listen for connections
-		self.sock.bind((socket.gethostname(), self.port))
+		self.sock.bind((0.0.0.0, self.port))
 		self.sock.listen(5)
 
 		# While the application is running attempt listen for connections and read the

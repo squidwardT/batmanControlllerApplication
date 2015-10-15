@@ -1,4 +1,5 @@
 import socket
+from time import sleep
 
 class TCPSocket(object):
 	'''Represents the most basic TCP socket for our application.
@@ -79,9 +80,10 @@ class TCPSocket(object):
 		# finished and what is in the buffer will be returned.
 		chunks = []
 		total_recieved = 0
-		while total_recieved < 5:
-			chunk = self.sock.recv(min(5 - total_recieved, 2048))
+		while total_recieved < 2048:
+			chunk = self.sock.recv(min(2048 - total_recieved, 2048))
 			if chunk == '':
+				break
 				raise RuntimeError('Connection Broken')
 			chunks.append(chunk)
 			total_recieved = total_recieved + len(chunk)
@@ -89,5 +91,8 @@ class TCPSocket(object):
 
 if __name__ == '__main__':
 	socket = TCPSocket('hello')
-	socket.connect('129.10.33.157', 55704)
-	socket.write('hello')
+	socket.connect('104.131.44.2', 3000)
+	socket.write('GET / HTTP/1.1\rHost: www.batphone.co\r\n\r\n')
+	sleep(2)
+	response = socket.read()
+	print response
