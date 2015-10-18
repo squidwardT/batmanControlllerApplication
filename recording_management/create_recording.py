@@ -9,8 +9,10 @@ def create_recording(duration, filename, el_format = 'wav'):
 	RETURN:
 	None
 	'''
+	import os
 	import time
 
+	root = os.path.join(os.path.abspath(__file__), '../../resources/recordings')
 	# Start a recording and wait @duration to kill it
 	process = start_recording(filename, el_format)
 	time.sleep(duration)

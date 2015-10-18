@@ -8,14 +8,18 @@ def play_recording(name, interface = 'headset'):
 	RETURNS:
 	None
 	'''
+	import os
 	import sys
 	sys.path.append('..')
 	from run_command import run_command
 
+	path = os.path.join(os.path.abspath(__file__), 
+		                '../../resources/recordings', filename)
+
 	if interface == 'headset':
 		run_command('./Playback_to_Headset.sh')
 
-	command = 'aplay ' + filename
+	command = 'aplay ' + path
 	run_command(command)
 
 if __name__ == '__main__':
