@@ -12,7 +12,7 @@ def get_resource_from_server(rsc_path, payload = None):
 
 	# Build the path to the resource
 	abs_path = 'http://batphone.co:3000/' + rsc_path
-	
+
 	# Do the GET with or without payload
 	if payload is None:
 		return requests.get(abs_path)
@@ -20,7 +20,7 @@ def get_resource_from_server(rsc_path, payload = None):
 
 if __name__ == '__main__':
 	import argparse
-	parser = ArgumentParser()
+	parser = argparse.ArgumentParser()
 	parser.add_argument('path')
 	args = parser.parse_args()
 

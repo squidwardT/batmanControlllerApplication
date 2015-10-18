@@ -15,9 +15,10 @@ def post_resource_to_server(rsc_path, payload):
 
 	# Build the path to the resource
 	abs_path = 'http://batphone.co:3000/' + rsc_path
+	print 'Posting to ' + abs_path
 
 	# POST the data
-	request = requests.post(abs_path, data=json.dumps(payload))
+	request = requests.post(abs_path, data=payload)
 	
 	# Check whether the POST was successful
 	if request.status_code == '200':
@@ -28,7 +29,12 @@ if __name__ == '__main__':
 	import argparse
 	parser = argparse.ArgumentParser()
 	parser.add_argument('path')
-	parser.add_argument('payload')
+	#parser.add_argument('payload')
 	args = parser.parse_args()
 
-	post_resource_to_server(args.path, args.payload)
+	new_user_info = { 'name' : 'squid',
+					  'email' : 'sqt@hotmail.com',
+					  'password' : 'helloworld',
+					  'password_confirmation' : 'helloworld'}
+
+	post_resource_to_server(args.path, { 'user' : new_user_info })
