@@ -16,8 +16,8 @@ def start_recording(filename, el_format = '.wav'):
 
 	run_command('./Record_from_DMIC.sh')
 
-	command = 'arecord -Dhw:sndrpiwsp -r 44100 -c 2 -f S16_LE ' + filename 
-	          + '.' + el_format
+	command = ('arecord -Dhw:sndrpiwsp -r 44100 -c 2 -f S16_LE ' + filename 
+	          + '.' + el_format)
 	args = shlex.split(command)
 
 	return Popen(args, stdout = PIPE, stderr = PIPE, shell = True)

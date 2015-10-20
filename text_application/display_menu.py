@@ -1,7 +1,7 @@
 def display_menu():
 	import sys
 	sys.path.append('..')
-	import interpret_command
+	from interpret_command import interpret_command
 	print 'MENU OPTIONS'
 	print '1. Download and Install Batman'
 	print '2. Configure Device on Network'
@@ -14,3 +14,6 @@ def display_menu():
 	print 'Input: '
 	command = raw_input()
 	interpret_command(command)
+
+if __name__ == '__main__':
+	display_menu()

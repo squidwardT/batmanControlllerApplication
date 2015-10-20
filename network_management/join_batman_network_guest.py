@@ -14,7 +14,9 @@ def join_batman_network_guest(ssid, ap, ip_range):
 	import sys
 	sys.path.append('..')
 	from run_command import run_command
-	from batman_sockets import BatmanClientServerSocket
+	from is_valid_ip_range import is_valid_ip_range
+	from is_valid_mac_address import is_valid_mac_address
+	from join_batman_network import join_batman_network
 
 	# If network information invalid do not change network settings just QUIT.
 	if not is_valid_ip_range(ip_range) or not is_valid_mac_address(ap):
@@ -27,8 +29,14 @@ def join_batman_network_guest(ssid, ap, ip_range):
 	# Configure the BATMAN-Advanced network using the guest ip
 	join_batman_network(ssid, ap, ip)
 
-	# Create a socket with a port the device will listen for messages on and then send a
-	# message to the access point with information about communicating with the device.
-	# The access point should respond with a switch IP message.
-	batman_socket = BatmanClientServerSocket.BatmanClientServerSocket(address)
-	batman_socket.client_send_message(gateway_ip, 'hello ' + ip + ' ' + str(batman_socket.port))
+if __name__ == '__main__':
+	import argparse
+	parser = argparse.ArgumentParser()
+	parser.add_argument('ssid')
+	parser.add_argument('ap')
+	parser.add_argument('ip_range')
+	args = parser.parse_args()
+
+	join_batman_network_guest(args.ssid, args.ap, args.ip_range)
+
+	
