@@ -40,6 +40,22 @@ def interpret_command(command):
 		print 'Data: '
 		data = raw_input()
 		post_resource_to_server(path, data)
+	elif command == '8':
+		from server_communication.post_resource_to_server import post_resource_to_server
+		print 'Name: '
+		name = raw_input()
+		print 'Email: '
+		email = raw_input()
+		print 'Password: '
+		pw = raw_input()
+		print 'Password Confirmation: '
+		pw_confirm = raw_input()
+		data = { 'user' : { 'name' : name,
+				 			'email': email,
+				 			'password' : pw,
+				 			'password_confirmation' : pw_confirm },
+				 'commit' : 'Create my account' }
+		post_resource_to_server('users', data)
 	else:
 		print 'The Command You Entered Was Invalid'
 

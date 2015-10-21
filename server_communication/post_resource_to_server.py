@@ -55,9 +55,9 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	path = 'users'
-	data = {'user' : {'name' : 'crazy chris',
-			'email': 'crazy_chris@bananas.com',
-			'password' : 'itsmechris',
-			'password_confirmation' : 'itsmechris'},
+	data = {'user' : { 'name' : 'crazy chris',
+					   'email': 'crazy_chris@bananas.com',
+					   'password' : 'itsmechris',
+					   'password_confirmation' : 'itsmechris'},
 			'commit' : 'Create my account'}
 	post_resource_to_server(path, data)

@@ -10,6 +10,7 @@ def display_menu():
 	print '5. View Network Information'
 	print '6. Get Resource from Server'
 	print '7. Post Resource to Server'
+	print '8. Create User'
 	print 'Please Enter the number of the option you would like to perform.'
 	print 'Input: '
 	command = raw_input()
