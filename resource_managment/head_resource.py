@@ -8,3 +8,6 @@ def head_resource(uri):
 	RETURNS:
 	@metadata 	-- The metadata associated with the uri given.
 	'''
+	from find_resource import find_resource
+	path = find_resource(uri)
+	return the meta data when we figure out how this will be structured

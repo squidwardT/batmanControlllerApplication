@@ -8,3 +8,7 @@ def find_resource(uri):
 	RETURNS:
 	@path		-- Full path of the uri.
 	'''
+	import os
+	from string import split
+	return os.path.join(os.path.abspath(__file__), '../resources', 
+		                split(uri, '/'))

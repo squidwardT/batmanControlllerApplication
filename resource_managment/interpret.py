@@ -19,4 +19,4 @@ def interpret(command):
 		post_resource(args[1], args[2])
 		reponse = args[2]
 	elif args[0] == 'OPTIONS':
-		options_resource(args[1])
+		response = options_resource(args[1])
