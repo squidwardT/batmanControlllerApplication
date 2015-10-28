@@ -1,6 +1,7 @@
 def interpret_command(command):
     import sys
     sys.path.append('..')
+    print '\n'
     if command == '1':
         from batman_setup.install_batman_raspbian import install_batman_raspbian
         install_batman_raspbian()
@@ -56,4 +57,5 @@ def get_args_as_dict(the_dict):
     for key in the_dict:
         print key + ':'
         the_dict[key] = raw_input()
+    print '\n'
     return the_dict
