@@ -81,5 +81,7 @@ class MasterInterpreter():
                     # NEED TO DECIDE WHAT INFORMATION I SHOULD RESPOND TO
                     # SERVGET AND SERVPOST WILL BE
                     return get_resource_from_server(args[1])
+            elif args[0] == 'REDIRECT':
+                print 'not yet'
         except:
             propogate(args)

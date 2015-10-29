@@ -29,6 +29,7 @@ def interpret_command(command):
         args = get_args_as_dict({'URI': None, 'Data': None})
         post_resource_to_server(args['URI'], args['Data'])
     elif command == '8':
+        from display_menu import display_user_menu
         from server_communication.post_resource_to_server import post_resource_to_server
         args = get_args_as_dict({'name': None,
                                  'email': None,
@@ -36,8 +37,10 @@ def interpret_command(command):
                                  'password_confirmation': None})
         data = {'user': args,
                 'commit': 'Create my account'}
-        post_resource_to_server('users', data)
+        session, request = post_resource_to_server('users', data)
+        display_user_menu(session)
     elif command == '9':
+        from display_menu import display_user_menu
         from server_communication.get_auth_token import get_auth_token
         from server_communication.post_resource_to_server import post_resource_to_server
         args = get_args_as_dict({'email': None,
@@ -45,13 +48,24 @@ def interpret_command(command):
                                  'remember_me': None})
         data = {'session': args,
                 'commit': 'Log In'}
-        post_resource_to_server('login', data)
+        session, request = post_resource_to_server('login', data)
+        display_user_menu(session)
     else:
         print 'The Command You Entered Was Invalid'
 
     from terminate_app import terminate_app
     terminate_app()
 
+def interpret_user_command(command, session):
+    import sys
+    sys.path.append('..')
+    print '\n'
+    if command == '1':
+        from server_communication.post_resource_to_server import post_resource_to_server
+        args = get_args_as_dict({'content' : None})
+        data = {'micropost': args,
+                'commit': 'Post'}
+        post_resource_to_server('microposts', data, session)
 
 def get_args_as_dict(the_dict):
     for key in the_dict:

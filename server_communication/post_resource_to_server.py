@@ -1,4 +1,4 @@
-def post_resource_to_server(rsc_path, payload, auth = None):
+def post_resource_to_server(rsc_path, payload, session = None, auth = None, cookie = None):
     '''POST something to the server.
 
     ARGS:
@@ -26,7 +26,12 @@ def post_resource_to_server(rsc_path, payload, auth = None):
     # This starts a session and does a GET on the login page of our application
     # From the HTML received we can then parse for the csrf-token. Once way
     # have the csrf-token we can add it to the dictionary we're POSTing.
-    session = requests.Session()
+    if session is None:
+        session = requests.Session()
+
+    if cookie is not None:
+        session.cookies = cookie
+
     if auth == None:
         payload['authenticity_token'] = get_auth_token(session)
     else:
@@ -41,11 +46,11 @@ def post_resource_to_server(rsc_path, payload, auth = None):
     response = session.post(abs_path,
                             headers=header,
                             data=json.dumps(payload))
-
+    print str(requests.utils.dict_from_cookiejar(response.cookies))
     # Check whether the POST was successful
     if response.status_code == 200:
         print 'Success'
-        return session
+        return session, response
     else:
         print str(response.status_code)
     return False
