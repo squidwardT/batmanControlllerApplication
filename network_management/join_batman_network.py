@@ -1,6 +1,5 @@
 def join_batman_network(network_name = 'squids_network', 
 						ap_mac = '02:12:34:56:78:9A', 
-						ip_address = '192.168.2.1',
 						channel = '1'):
 	'''Create a BATMAN network using Raspbian.
 
@@ -24,31 +23,27 @@ def join_batman_network(network_name = 'squids_network',
 	# This is standard for BATMAN-Advanced. Most protocols only require
 	# 1500 frames, but BATMAN-Advanced uses the spare 32 frames to append
 	# its header.
-	run_command('sudo ifconfig wlan0 mtu 1532')
+	run_command('sudo ip link set up dev eth0')
+	run_command('sudo ip link set mtu 1532 dev wlan0')
 
 	# Configure wlan0 with the specifications given.
-	run_command('sudo ifconfig wlan0 down; sudo iwconfig wlan0 mode ad-hoc ' +
+	run_command('sudo ifconfig wlan0 down && sudo iwconfig wlan0 mode ad-hoc ' +
 				'essid ' + network_name + ' ap ' + ap_mac + ' channel ' + str(channel))
 
 	# Add wlan0 to the list of BATMAN-Advanced available interfaces, then
 	# start wlan0 and the corresponding BATMAN-Advanced interface.
 	run_command('sudo batctl if add wlan0')
-	run_command('sudo ifconfig wlan0 up')
-	run_command('sudo ifconfig bat0 up')
-
-	# Assign the BATMAN-Advanced interface an IP Address as a network-wide
-	# indentifier.
-	run_command('sudo ifconfig bat0 192.168.2.1')
-
+	run_command('sudo ip link set up dev wlan0')
+	run_command('sudo ip link set up dev bat0')
+	run_command('sudo batctl gw_mode client')
 
 if __name__ == '__main__':
 	import argparse
-	parser = ArgumentParser()
+	parser = argparse.ArgumentParser()
 	parser.add_argument('-n', 'network', default = 'squids_network')
 	parser.add_argument('-a', 'ap_mac', default = '02:12:34:56:78:9A')
 	parser.add_argument('-c', 'channel', default = '1')
-	parser.add_argument('-i', 'ip_address', default = '192.168.2.1')
 	args = parser.parse_args()
 
-	create_batman_network(args.network, args.ap_mac, args.ip_address, args.channel)
+	join_batman_network(args.network, args.ap_mac, args.channel)
 
